@@ -1,12 +1,21 @@
-# Python Project Template
+# Python Project Template <!-- omit from toc -->
 
-A modern Python project template using `uv` for dependency management.
+A project template for writing Python code on a mac.
 
-## How to Download the Files
+- [Downloading Files](#downloading-files)
+- [Initializing the project](#initializing-the-project)
+- [Running your code](#running-your-code)
+- [Using VSCode](#using-vscode)
+- [Adding and removing dependencies](#adding-and-removing-dependencies)
+
+
+## Downloading Files
 
 If you have a github account you can use this repository as a template to
-create your own project. If you do not have a github account, you can
-download the files directly as follows:
+create your own project.  (See the green "Use this template" button toward
+the upper-right corner of the page.)
+
+If you do not have a github account, you can download the files directly as follows:
 
 1. Click the green "Code" button at the top of the repository
 2. Select "Download ZIP"
@@ -16,15 +25,17 @@ download the files directly as follows:
    cd path/to/extracted-folder
    ```
 
-## Initializing the Project
+## Initializing the project
 
 1. **Install uv**
 
    `uv` is a tool to streamline the setup and management of Python projects.
-   The following command installs `uv` if it is not already installed on your system.
 
    ```sh
-   command -v uv >/dev/null 2>&1 && echo "already installed" || curl -LsSf https://astral.sh/uv/install.sh
+   # Check if it's already installed
+   uv --version
+   # Install if needed
+   curl -LsSf https://astral.sh/uv/install.sh
    # Verify installation
    uv --version
    ```
@@ -43,7 +54,7 @@ download the files directly as follows:
    uv python install 3.13
    uv python pin 3.13
    # Create the virtual environment
-   uv venv
+   uv venv --prompt venv
    # Enter the virtual environment, and install dependencies
    source .venv/bin/activate
    uv sync
@@ -51,74 +62,53 @@ download the files directly as follows:
 
 ## Running your code
 
-Whenever you want to run your code, make sure you are in the virtual environment.  To
-enter the virtual environment, run:
+1. **Entering the virtual environment**
 
+   Whenever you want to run your code, make sure you are in the virtual environment.  To enter the virtual environment, run:
+
+   ```bash
+   source .venv/bin/activate
+   ```
+   Note that:
+   * `(venv)` will be prepended to your terminal prompt to indicate
+   that you are in the virtual environment.
+   * You can run `deactivate` to exit the virtual environment (but there's usually no need to do this).
+   * There's no harm if you inadvertently re-run the `.source venv/bin/activate` command when you don't need to.
+
+
+2. **Pythoning the python**
+
+   To run your code, run `python <path-to-your-code>`.  For example:
+
+   ```bash
+   python my_project/hello_world.py
+   ```
+
+   Note that the file `hello_world.py` is in the `my_project` directory (feel free to rename it), following the usual python convention of keeping your code in a subdirectory of the project.
+
+## Using VSCode
+
+After installing VSCode, just type `code .` in the project root directory.
+
+There are many extensions that are useful for python development; this repository comes with some specific recommendations.  To install them:
+* Open the command palette (Ctrl+Shift+P) and type "Extensions: Show Recommended Extensions".
+* Wait for the list of recommended extensions to appear, it's a bit slow.
+* Click "Install" on the Workspace Recommended extensions.
+* Once the installations complete (it should be fast), quit VScode and then type `code .` to reopen the project.
+
+The recommended extensions include linting functionality (to catch errors before you run your code) and auto-formatting.
+
+## Adding and removing dependencies
+
+To add packages to your project, use the `uv add` command:
 ```bash
-source .venv/bin/activate
+# Add a single package ("requests")
+uv add numpy
+# Recommended: require a minimum version -- in this case, numpy 2.3 or higher
+uv add "numpy>=2.3"
 ```
 
-To run your Python code, you can use the following command:
-
+To remove packages:
 ```bash
-python src/my_script.py
+uv remove numpy
 ```
-
-## Managing Dependencies
-
-### Adding and removing dependencies
-
-```bash
-# Add a single package
-uv add requests
-# Add multiple packages
-uv add pandas numpy matplotlib
-# Add a specific version
-uv add "django>=4.2"
-
-### Remove Dependencies
-
-```bash
-# Remove a package
-uv remove requests
-
-# Remove a dev dependency
-uv remove --dev pytest
-```
-
-### Update Dependencies
-
-```bash
-# Update all packages to latest compatible versions
-uv lock --upgrade
-
-# Update a specific package
-uv add --upgrade requests
-```
-
-
-## Project Structure
-
-```
-your-project/
-├── .python-version     # Pinned Python version
-├── pyproject.toml      # Project metadata and dependencies
-├── uv.lock            # Locked dependency versions
-├── .venv/             # Virtual environment (git-ignored)
-├── .gitignore         # Git ignore rules
-├── README.md          # This file
-└── src/               # Your source code
-    └── ...
-```
-
-## Quick Command Reference
-
-| Task                     | Command                     |
-| ------------------------ | --------------------------- |
-| Add a package            | `uv add package-name`       |
-| Add a dev package        | `uv add --dev package-name` |
-| Remove a package         | `uv remove package-name`    |
-| Install all dependencies | `uv sync`                   |
-| Install without dev deps | `uv sync --no-dev`          |
-| Update lock file         | `uv lock`                   |
-| Show installed packages  | `uv pip list`               |
