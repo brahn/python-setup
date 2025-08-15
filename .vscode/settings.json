@@ -4,7 +4,7 @@
   "black-formatter.args": ["--config", "pyproject.toml"],
   "flake8.args": ["--toml-config", "pyproject.toml"],
   "isort.args": ["--settings-path", "pyproject.toml"],
-  "python.analysis.extraPaths": ["./venv/lib/python3.13/site-packages"],
+  "python.analysis.extraPaths": ["./.venv/lib/python3.13/site-packages"],
   "python.defaultInterpreterPath": "./.venv/bin/python",
   "python.testing.pytestArgs": ["."],
   "python.testing.unittestEnabled": false,

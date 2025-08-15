@@ -35,7 +35,7 @@ If you do not have a github account, you can download the files directly as foll
    # Check if it's already installed
    uv --version
    # Install if needed
-   curl -LsSf https://astral.sh/uv/install.sh
+   curl -LsSf https://astral.sh/uv/install.sh | sh
    # Verify installation
    uv --version
    ```
